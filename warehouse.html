@@ -8,48 +8,64 @@
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/style.css">
+    <script defer src="js/script.js"></script>
 </head>
 
 <body>
-    <header class="header-section-crm">
-        <div class="header-section-crm__head">
+    <header class="header-section-ware">
+        <div class="header-section-ware__head">
             <div class="icon-table">
                 <button><a href="CRM-system.html"><img src="icons/table.svg" alt="иконка таблицы"></a></button>
             </div>
             <div class="icon-person">
-                <button><img src="icons/notification.svg" alt="иконка увудомлений"></button>
-                <button><img src="icons/icon_profile.svg" alt="иконка профиля"></button>
-            </div>                
+                <button><img src="icons/notification.svg" alt="иконка уведомлений"></button>
+                <button class="button-profile-ware"><img src="icons/icon_profile.svg" alt="иконка профиля"></button>
+            </div>
+        </div>
+
+        <!-- ФОРМА ВЫХОДА-->
+
+        <div class="overlay"></div>
+        <div class="header-section__form-ware">
+            <form action="">
+                <div class="container">
+                    <p>Точно хотите выйти из аккаунта?</p>
+                    <div class="form-btn">
+                        <button class="button-form"><a href="CRM-system.html">Нет, хочу остаться</a></button>
+                    </div>
+                    <button class="button-exit"><a href="index.html">Да, выйти</a></button>
+                </div>
+            </form>
         </div>
     </header>
 
     <div class="body-section__accordion">
-    <div class="shadow">
-            <div class="accordion-bar">
+        <div class="shadow">
+            <div class="accordion-bar" onclick="toggleAccordion(this)">
                 <p>01.10.24 - 01.11.24</p>
-                <img src="icons/app.svg" alt="иконка стрелки вверх" class="acc-app">
+                <img src="icons/down.svg" alt="иконка стрелки вниз" class="acc-app">
             </div>
-            <div class="accordion">
-                <p>Требуемый материал для заказа
-                    ID 123:</p>
+            <div class="accordion-content">
+                <p>Требуемый материал для заказа ID 123:</p>
                 <label class="checkbox-p">
-                    <p>Дерево - 20 шт.</p><input type="checkbox">
+                    <p>Дерево - 20 шт.</p><input type="checkbox" class="custom-checkbox">
                 </label>
             </div>
         </div>
         <div class="shadow">
-            <div class="accordion-bar">
-                <p>01.10.24 - 01.11.24</p>
-                <img src="icons/down.svg" alt="иконка стрелки вверх" class="acc-app">
+            <div class="accordion-bar" onclick="toggleAccordion(this)">
+                <p>02.10.24 - 02.11.24</p>
+                <img src="icons/down.svg" alt="иконка стрелки вниз" class="acc-app">
+            </div>
+            <div class="accordion-content">
+                <p>Требуемый материал для заказа ID 456:</p>
+                <label class="checkbox-p">
+                    <p>Металл - 15 шт.</p><input type="checkbox" class="custom-checkbox">
+                </label>
             </div>
         </div>
-        <div class="shadow">
-            <div class="accordion-bar">
-                <p>01.10.24 - 01.11.24</p>
-                <img src="icons/down.svg" alt="иконка стрелки вверх" class="acc-app">
-            </div>
-        </div> 
     </div>
+    <script src="js/script.js"></script>
 </body>
 
 </html>

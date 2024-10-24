@@ -13,26 +13,27 @@
 <body>
     <!-- ШАПКА -->
     <header class="header-section">
-
         <div class="header-section__header">
             <div class="header-section__nav-bar">
+                <div class="logo">
+                    <a href="index.html"><img src="icons/logo.svg" alt="логотип компании Marketry"></a>
+                </div>
                 <div class="header-section__nav-menu">
                     <ul class="nav-menu">
                         <li><a href="index.html">О нас</a></li>
                         <li><a href="index.html">Каталог</a></li>
                         <li><a href="index.html">Оплата и доставка</a></li>
                         <li><a href="index.html">Контакты</a></li>
-                        <li><button class="button-profile"><img src="icons/icon_profile.svg" alt="иконка профиля"></button></li>
+                        <li><button class="button-profile"><img src="icons/icon_profile.svg"
+                                    alt="иконка профиля"></button></li>
                     </ul>
                 </div>
             </div>
 
-            <div class="logo">
-                <a href="index.html"><img src="icons/logo.svg" alt="логотип компании Marketry"></a>
-            </div>
+            <!-- ФОРМА РЕГИСТРАЦИИ-->
 
             <div class="header-section__form">
-                <form action="action.php">
+                <form action="" novalidate>
                     <div class="container">
                         <p>Регистрация</p>
                         <div class="form-close">
@@ -43,27 +44,43 @@
                         <div class="form-btn">
                             <button class="button-form"><a href="CRM-system.html">Зарегистрироваться</a></button>
                         </div>
-                        <button class="button-acc"><a href="CRM-system.html">Уже есть аккаунт</a></button>
+                        <button class="button-acc">Уже есть аккаунт</button>
                     </div>
                 </form>
             </div>
 
+            <!-- ФОРМА ВХОДА-->
 
-            <div class="header-section__information">
-                <div class="telephone">
-                    <p><img src="icons/icon_contacts.svg" alt="иконка контактов">
-                        Контакты: +7 (495) 514-00-78, info@marketry.ru</p>
-                </div>
-
-                <div class="location">
-                    <p><img src="icons/icon_location.svg" alt="иконка локации">
-                        Адрес: г. Москва, ул. Маломосковская, 18с1</p>
-                </div>
+            <div class="header-section__form-login">
+                <form action="">
+                    <div class="container">
+                        <p>Вход</p>
+                        <div class="form-close">
+                            <img src="icons/icon_close.svg" alt="иконка крестика">
+                        </div>
+                        <input class="input-style" type="text" placeholder="Логин" name="username" required>
+                        <input class="input-style" type="password" placeholder="Пароль" name="password" required>
+                        <div class="form-btn">
+                            <button class="button-form"><a href="CRM-system.html">Войти</a></button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </header>
 
     <div class="body-section__body">
+        <div class="body-section__information">
+            <div class="telephone">
+                <p><img src="icons/icon_contacts.svg" alt="иконка контактов">
+                    Контакты: +7 (495) 514-00-78, info@marketry.ru</p>
+            </div>
+
+            <div class="location">
+                <p><img src="icons/icon_location.svg" alt="иконка локации">
+                    Адрес: г. Москва, ул. Маломосковская, 18с1</p>
+            </div>
+        </div>
         <div class="first-section">
             <div class="first-section__img">
                 <img src="img/boxes.png" alt="картинка с коробками">
