@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <!-- ШАПКАА -->
+    <!-- ШАПКА -->
     <header class="header-section">
         <div class="header-section__header">
             <div class="header-section__nav-bar">
@@ -33,18 +33,22 @@
             <!-- ФОРМА РЕГИСТРАЦИИ-->
 
             <div class="header-section__form">
-                <form action="" novalidate>
+                <form id="registrationForm" novalidate>
                     <div class="container">
                         <p>Регистрация</p>
                         <div class="form-close">
                             <img src="icons/icon_close.svg" alt="иконка крестика">
                         </div>
-                        <input class="input-style" type="text" placeholder="Логин" name="username" required>
-                        <input class="input-style" type="password" placeholder="Пароль" name="password" required>
+                        <input class="input-style login" type="text" placeholder="Логин" name="username" required
+                            minlength="5" maxlength="25">
+                        <div id="usernameError" class="error-message"></div>
+                        <input class="input-style password" type="password" placeholder="Пароль" name="password"
+                            required>
+                        <div id="passwordError" class="error-message"></div>
                         <div class="form-btn">
-                            <button class="button-form"><a href="CRM-system.html">Зарегистрироваться</a></button>
+                            <button type="submit" class="button-form">Зарегистрироваться</button>
                         </div>
-                        <button class="button-acc">Уже есть аккаунт</button>
+                        <button type="button" class="button-acc">Уже есть аккаунт</button>
                     </div>
                 </form>
             </div>
@@ -52,16 +56,20 @@
             <!-- ФОРМА ВХОДА-->
 
             <div class="header-section__form-login">
-                <form action="">
+                <form id="authorizationForm">
                     <div class="container">
                         <p>Вход</p>
                         <div class="form-close">
                             <img src="icons/icon_close.svg" alt="иконка крестика">
                         </div>
-                        <input class="input-style" type="text" placeholder="Логин" name="username" required>
-                        <input class="input-style" type="password" placeholder="Пароль" name="password" required>
+                        <input class="input-style loginAu" type="text" placeholder="Логин" name="usernameAu" required
+                            minlength="5" maxlength="25">
+                        <div id="usernameErrorAu" class="error-message"></div>
+                        <input class="input-style passwordAu" type="password" placeholder="Пароль" name="passwordAu"
+                            required>
+                        <div id="passwordErrorAu" class="error-message"></div>
                         <div class="form-btn">
-                            <button class="button-form"><a href="CRM-system.html">Войти</a></button>
+                            <button class="button-form">Войти</button>
                         </div>
                     </div>
                 </form>
