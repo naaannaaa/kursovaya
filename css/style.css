@@ -121,6 +121,10 @@ a:hover {
 .header-section__form p {
   text-align: center;
 }
+.header-section__form .error-message {
+  text-align: center;
+  color: #C24343;
+}
 .header-section__form .form-btn {
   display: flex;
   justify-content: center;
