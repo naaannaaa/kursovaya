@@ -514,11 +514,6 @@ footer {
   flex-direction: column;
   margin: 60px;
 }
-.header-section__form-crm .form-close {
-  display: flex;
-  justify-content: end;
-  cursor: pointer;
-}
 
 .overlay {
   display: none;
@@ -531,11 +526,59 @@ footer {
   z-index: 999;
 }
 
+.header-section__filter {
+  display: none;
+  background-color: #E0EDFE;
+  position: absolute;
+  box-shadow: 7px 4px 24px 0px rgba(0, 0, 0, 0.25);
+  width: 320px;
+  height: 240px;
+  padding: 20px 54px;
+}
+.header-section__filter li {
+  list-style-type: disc;
+  padding: 6px;
+  cursor: pointer;
+}
+.header-section__filter li:hover {
+  color: #65AFBC;
+}
+.header-section__filter .form-close {
+  display: flex;
+  justify-content: end;
+  cursor: pointer;
+  padding: 30px 230px 0;
+}
+
+.header-section__customization {
+  display: none;
+  background-color: #E0EDFE;
+  position: absolute;
+  box-shadow: 7px 4px 24px 0px rgba(0, 0, 0, 0.25);
+  width: 330px;
+  height: auto;
+  padding: 20px 54px;
+}
+.header-section__customization li {
+  list-style-type: disc;
+  padding: 6px;
+  cursor: pointer;
+}
+.header-section__customization li:hover {
+  color: #65AFBC;
+}
+.header-section__customization .form-close {
+  display: flex;
+  justify-content: end;
+  cursor: pointer;
+  padding: 30px 230px 0;
+}
+
 .header-section-crm {
   background-color: #E0EDFE;
   padding: 50px 100px;
 }
-.header-section-crm img {
+.header-section-crm .icons {
   width: 45px;
   height: 45px;
   margin: 0 20px;
@@ -566,21 +609,24 @@ footer {
 .container-crm {
   background-color: #F5F6F6;
   border: 30px solid #E0EDFE;
-  position: relative;
 }
 .container-crm__modal-material {
   background-color: #E0EDFE;
-  border: 3px solid #4F8398;
   width: 260px;
   height: auto;
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   display: none;
   padding: 30px 20px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   text-align: center;
+}
+.container-crm__modal-material .form-close {
+  display: flex;
+  justify-content: flex-end;
+  cursor: pointer;
 }
 .container-crm__modal-material a {
   display: flex;
@@ -597,6 +643,7 @@ footer {
 }
 .container-crm__modal-material .btn-material {
   background-color: #A6CFD6;
+  margin: 15px;
   border: none;
   width: 170px;
   height: 30px;
