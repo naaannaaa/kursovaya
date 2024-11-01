@@ -543,6 +543,21 @@ function renderTable(data) {
                         td.style.color = '#53964A';
                     }
                 }
+
+                if (property === "material") {
+                    const quantity = row.quantity;
+                    if (quantity <= 20) {
+                        td.style.color = '#C24343';
+                    }
+
+                    td.style.cursor = "pointer";
+                    td.addEventListener('click', function () {
+                        openModal(`${row.material}<br>Осталось шт. на складе: ${quantity}`);
+                        const modalMaterial = document.getElementById("modalMaterial");
+                        if (modalMaterial) modalMaterial.style.display = "block";
+                    });
+                }
+
                 tr.appendChild(td);
             }
         }
