@@ -16,12 +16,13 @@
     <header class="header-section-crm">
         <div class="header-section-crm__head">
             <div class="icon-table">
-                <button><img src="icons/table.svg" alt="иконка таблицы"></button>
-                <button><img src="icons/filter.svg" alt="иконка фильтра"></button>
+                <button class="icons customization"><img src="icons/table.svg" alt="иконка таблицы"></button>
+                <button class="icons filter"><img src="icons/filter.svg" alt="иконка фильтра"></button>
             </div>
             <div class="icon-person">
-                <button><img src="icons/notification.svg" alt="иконка увудомлений"></button>
-                <button class="button-profile-crm"><img src="icons/icon_profile.svg" alt="иконка профиля"></button>
+                <button class="icons"><img src="icons/notification.svg" alt="иконка увудомлений"></button>
+                <button class="button-profile-crm icons"><img src="icons/icon_profile.svg"
+                        alt="иконка профиля"></button>
             </div>
         </div>
 
@@ -39,6 +40,43 @@
                 </div>
             </form>
         </div>
+
+        <!-- ФИЛЬТРАЦИЯ -->
+
+        <div class="header-section__filter">
+            <div class="form-close">
+                <img src="icons/icon_close.svg" alt="иконка крестика">
+            </div>
+            <div class="text-filter">
+                <p>Фильтр по:</p>
+                <ul class="filter">
+                    <li><button class="filter-date-button">дате</button></li>
+                    <li><button class="filter-alphabet-button">алфавиту</button></li>
+                    <li><button class="filter-unpaid-button">неоплаченному счету</button></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="header-section__customization">
+            <div class="form-close">
+                <img src="icons/icon_close.svg" alt="иконка крестика">
+            </div>
+            <div class="text-customization">
+                <p>Настройка таблицы по:</p>
+                <ul class="customization">
+                    <li><button class="customization-id-button">ID</button></li>
+                    <li><button class="customization-date-button">Дата</button></li>
+                    <li><button class="customization-term-button">Срок</button></li>
+                    <li><button class="customization-counterparty-button">Контрагент</button></li>
+                    <li><button class="customization-order-button">Заказ (шт.)</button></li>
+                    <li><button class="customization-material-button">Материалы</button></li>
+                    <li><button class="customization-size-button">Размер</button></li>
+                    <li><button class="customization-paid-button">Счет</button></li>
+                    <li><button class="customization-score-button">Оплачено</button></li>
+                    <li><button class="customization-all-button">Показать все</button></li>
+                </ul>
+            </div>
+        </div>
     </header>
 
     <div class="body-section-crm__container">
@@ -48,8 +86,8 @@
                 <thead>
                     <tr class="table-title">
                         <th>ID</th>
-                        <th>Срок</th>
                         <th>Дата</th>
+                        <th>Срок</th>
                         <th>Контрагент</th>
                         <th>Заказ (шт.)</th>
                         <th>Материалы</th>
@@ -64,8 +102,8 @@
             <!-- </div> -->
 
             <div class="container-crm__modal-material" id="modalMaterial">
-                <div class="modal-header">
-                    <a href="#" class="modal-close" onclick="closeModal()">×</a>
+                <div class="form-close">
+                    <img src="icons/icon_close.svg" alt="иконка крестика">
                 </div>
                 <div class="modal-content" id="modalContent"></div>
                 <button class="btn-material" type="submit">

@@ -24,7 +24,6 @@ body
         font-size: 20px
         margin-top: -90px
     li
-        // margin: 60px 0
         font-size: 20px
 a
     text-decoration: none
@@ -422,10 +421,7 @@ footer
         display: flex
         flex-direction: column
         margin: 60px
-    .form-close
-        display: flex
-        justify-content: end
-        cursor: pointer
+
 .overlay
     display: none
     position: fixed
@@ -436,12 +432,56 @@ footer
     background-color: rgba(0, 0, 0, 0.5)
     z-index: 999
 
+//----------ФИЛЬТРАЦИЯ----------
+
+.header-section__filter
+    display: none
+    background-color: #E0EDFE
+    position: absolute
+    box-shadow: 7px 4px 24px 0px rgba(0, 0, 0, 0.25)
+    width: 320px
+    height: 240px
+    padding: 20px 54px
+    li
+        list-style-type: disc
+        padding: 6px
+        cursor: pointer
+    li:hover
+        color: #65AFBC
+    .form-close
+        display: flex
+        justify-content: end
+        cursor: pointer
+        padding: 30px 230px 0
+
+//----------НАСТРОЙКА ТАБЛИЦЫ----------
+
+.header-section__customization
+    display: none
+    background-color: #E0EDFE
+    position: absolute
+    box-shadow: 7px 4px 24px 0px rgba(0, 0, 0, 0.25)
+    width: 330px
+    height: auto
+    padding: 20px 54px
+    li
+        list-style-type: disc
+        padding: 6px
+        cursor: pointer
+    li:hover
+        color: #65AFBC
+    .form-close
+        display: flex
+        justify-content: end
+        cursor: pointer
+        padding: 30px 230px 0
+
 //----------ШАПКА----------
 
 .header-section-crm
     background-color: #E0EDFE
     padding: 50px 100px
-    img
+    .icons
         width: 45px
         height: 45px
         margin: 0 20px
@@ -466,20 +506,23 @@ footer
 .container-crm
     background-color: #F5F6F6
     border: 30px solid #E0EDFE
-    position: relative
+
     &__modal-material
         background-color: #E0EDFE
-        border: 3px solid #4F8398
         width: 260px
         height: auto
-        position: absolute
+        position: fixed
         top: 50%
         left: 50%
         transform: translate(-50%, -50%)
         display: none
         padding: 30px 20px
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1)
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2)
         text-align: center
+        .form-close
+            display: flex
+            justify-content: flex-end
+            cursor: pointer
         a
             display: flex
             justify-content: right
@@ -495,6 +538,7 @@ footer
 
         .btn-material
             background-color: #A6CFD6
+            margin: 15px
             border: none
             width: 170px
             height: 30px
@@ -700,7 +744,7 @@ th
 //     border-width: 0 2px 2px 0
 //     transform: rotate(45deg)
 
-//----------ПОДКЛЮЧЕНИЕ ШРИФТОВ----------
+//-------------ПОДКЛЮЧЕНИЕ ШРИФТОВ----------
 
 @font-face
     font-family: 'Montserrat'
