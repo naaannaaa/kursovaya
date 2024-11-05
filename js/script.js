@@ -71,6 +71,7 @@ if (closeBtn.length) {
             if (modalAuthorizationForm) modalAuthorizationForm.style.display = 'none';
             if (filterCrm) filterCrm.style.display = 'none';
             if (customizationCrm) customizationCrm.style.display = 'none';
+            if (modalNotification) modalNotification.style.display = 'none';
 
             if (errorLogin) errorLogin.textContent = '';
             if (errorPass) errorPass.textContent = '';
@@ -599,5 +600,69 @@ if (btnCustomization) {
         customizationCrm.style.display = 'block';
     });
 }
+
+const table = document.querySelector('.table-crm');
+const buttons = {
+    id: document.querySelector('.customization-id-button'),
+    date: document.querySelector('.customization-date-button'),
+    term: document.querySelector('.customization-term-button'),
+    counterparty: document.querySelector('.customization-counterparty-button'),
+    order: document.querySelector('.customization-order-button'),
+    material: document.querySelector('.customization-material-button'),
+    size: document.querySelector('.customization-size-button'),
+    paid: document.querySelector('.customization-paid-button'),
+    score: document.querySelector('.customization-score-button'),
+    all: document.querySelector('.customization-all-button')
+};
+
+const columnVisibility = {
+    0: true,
+    1: true,
+    2: true,
+    3: true,
+    4: true,
+    5: true,
+    6: true,
+    7: true,
+    8: true
+};
+
+function hideAllBut(columnIndex) {
+    Array.from(table.rows).forEach(row => {
+        Array.from(row.cells).forEach((cell, index) => {
+            cell.style.display = index === columnIndex ? '' : 'none';
+        });
+    });
+}
+
+Object.keys(buttons).forEach(key => {
+    buttons[key].addEventListener('click', () => {
+        if (key === 'all') {
+            // Показать все столбцы
+            Array.from(table.rows).forEach(row => {
+                Array.from(row.cells).forEach(cell => {
+                    cell.style.display = '';
+                });
+            });
+        } else {
+            const columnIndex = Object.keys(buttons).indexOf(key);
+            hideAllBut(columnIndex);
+        }
+    });
+});
+
+//УВЕДОМЛЕНИЯ
+
+const notification = document.querySelector('.notification');
+const modalNotification = document.querySelector('.modal-notification');
+const notificationRed = document.querySelector('.icon-red')
+
+notification.addEventListener('click', function () {
+    if (modalNotification) {
+        modalNotification.style.display = 'flex';
+    }
+});
+
+
 
 document.addEventListener("DOMContentLoaded", loadTableData);

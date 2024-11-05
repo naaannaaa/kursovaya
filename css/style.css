@@ -526,6 +526,35 @@ footer {
   z-index: 999;
 }
 
+.modal-notification {
+  display: none;
+  background-color: #F5F6F6;
+  position: absolute;
+  top: 100px;
+  left: 1000px;
+  width: 400px;
+  height: 640px;
+  border-radius: 6px;
+  box-shadow: 7px 4px 24px 0px rgba(0, 0, 0, 0.25);
+  flex-direction: column;
+}
+.modal-notification .form-close {
+  display: flex;
+  justify-content: end;
+  cursor: pointer;
+  margin: 25px 360px;
+  width: 15px;
+  height: 13px;
+}
+.modal-notification .text-notification {
+  color: #10181A;
+  font-weight: 700;
+  margin: 0 38px;
+}
+.modal-notification .icon-red {
+  margin: 40px 20px;
+}
+
 .header-section__filter {
   display: none;
   background-color: #E0EDFE;
