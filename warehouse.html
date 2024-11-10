@@ -15,7 +15,7 @@
     <header class="header-section-ware">
         <div class="header-section-ware__head">
             <div class="icon-table">
-                <button><img src="icons/table.svg" alt="иконка таблицы"></button>
+                <button class="table-ware"><img src="icons/table.svg" alt="иконка таблицы"></button>
             </div>
             <div class="icon-person">
                 <button><img src="icons/notification.svg" alt="иконка уведомлений"></button>
@@ -31,37 +31,28 @@
                 <div class="container">
                     <p>Точно хотите выйти из аккаунта?</p>
                     <div class="form-btn">
-                        <button class="button-form">Нет, хочу остаться</button>
+                        <button type="button" class="button-form">Нет, хочу остаться</button>
                     </div>
-                    <button class="button-exit">Да, выйти</button>
+                    <button type="button" class="button-exit">Да, выйти</button>
                 </div>
             </form>
         </div>
     </header>
 
+    <!-- АККАРДИОН -->
+
     <div class="body-section__accordion">
         <div class="shadow">
             <div class="accordion-bar" onclick="toggleAccordion(this)">
-                <p>01.10.24 - 01.11.24</p>
+                <p></p>
                 <img src="icons/down.svg" alt="иконка стрелки вниз" class="acc-app">
             </div>
             <div class="accordion-content">
-                <p>Требуемый материал для заказа ID 123:</p>
-                <label class="checkbox-p">
-                    Дерево - 20 шт.<input type="checkbox" class="custom-checkbox">
+                <p></p>
+                <label class="radio-p">
+                    <p></p>
                 </label>
-            </div>
-        </div>
-        <div class="shadow">
-            <div class="accordion-bar" onclick="toggleAccordion(this)">
-                <p>02.10.24 - 02.11.24</p>
-                <img src="icons/down.svg" alt="иконка стрелки вниз" class="acc-app">
-            </div>
-            <div class="accordion-content">
-                <p>Требуемый материал для заказа ID 456:</p>
-                <label class="checkbox-p">
-                    Металл - 15 шт.<input type="checkbox" class="custom-checkbox">
-                </label>
+                <button class="button-accordion">Закрыть заявку</button>
             </div>
         </div>
     </div>

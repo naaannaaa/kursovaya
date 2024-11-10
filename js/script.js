@@ -16,6 +16,92 @@ const filterCrm = document.querySelector('.header-section__filter');
 const btnFilter = document.querySelector('.filter');
 const customizationCrm = document.querySelector('.header-section__customization')
 const btnCustomization = document.querySelector('.customization');
+const titleTag = document.querySelector("head title");
+const notification = document.querySelector('.notification');
+const modalNotification = document.querySelector('.modal-notification');
+const notificationRed = document.querySelector('.icon-red');
+const exitAccount = document.querySelector('.button-exit');
+const exitNo = document.querySelector('.button-form');
+const materialBtn = document.querySelector('.btn-material');
+const tableWare = document.querySelector('.table-ware');
+const btnBox = document.querySelector('.box');
+
+//РАБОЧИЕ АККАУНТЫ
+
+const accounts = {
+    director: [
+        {
+            id: 1,
+            login: 'director',
+            password: 'director123',
+            role: 'director'
+        },
+    ],
+    bookkeeper: [
+        {
+            id: 2,
+            login: 'bookkeeper',
+            password: 'bookkeeper123',
+            role: 'bookkeeper'
+        }
+    ],
+    meneger: [
+        {
+            id: 3,
+            login: 'meneger',
+            password: 'meneger123',
+            role: 'meneger'
+        }
+    ],
+    sklad: [
+        {
+            id: 4,
+            login: 'sklad',
+            password: 'sklad123',
+            role: 'sklad'
+        }
+    ]
+};
+
+localStorage.setItem('accounts', JSON.stringify(accounts));
+
+const storedAccounts = JSON.parse(localStorage.getItem('accounts'));
+console.log(storedAccounts);
+
+//ВЫХОД ИЗ АККАУНТА
+
+if (
+    titleTag.textContent === "CRM-system" ||
+    titleTag.textContent === "Страница заявок"
+) {
+    exitNo.addEventListener('click', function () {
+        const modal = document.querySelector('.header-section__form-crm');
+        if (modal) {
+            modal.style.display = 'none';
+            overlay.forEach(function (o) {
+                o.style.display = 'none';
+            });
+        }
+    });
+
+    exitNo.addEventListener('click', function () {
+        const modal = document.querySelector('.header-section__form-ware');
+        if (modal) {
+            modal.style.display = 'none';
+            overlay.forEach(function (o) {
+                o.style.display = 'none';
+            });
+        }
+    });
+
+    //ВЫХОД
+
+    exitAccount.addEventListener('click', function (event) {
+        event.preventDefault();
+        window.location.href = 'index.html';
+        sessionStorage.clear()
+    });
+}
 
 if (profile.length) {
     profile.forEach(function (button) {
@@ -181,7 +267,7 @@ if (registrationForm) {
         users.push(newUser);
         localStorage.setItem('users', JSON.stringify(users));
 
-        window.location.href = 'CRM-system.html';
+        window.location.href = 'index.html';
     });
 }
 
@@ -216,32 +302,41 @@ if (authorizationForm) {
         if (!username) {
             usernameErrorAu.textContent = 'Логин не может быть пустым.';
             isValid = false;
-        } else if (username.length < 5) {
-            usernameErrorAu.textContent = 'Логин должен содержать не менее 5 символов.';
-            isValid = false;
         } else if (!password) {
             passwordErrorAu.textContent = 'Пароль не может быть пустым.';
-            isValid = false;
-        } else if (password.length < 6
-        ) {
-            passwordErrorAu.textContent = 'Пароль должен содержать не менее 6 символов.';
-            isValid = false;
-        } else if (!/[0-9]/.test(password)) {
-            passwordErrorAu.textContent = 'Пароль должен содержать хотя бы одну цифру.';
             isValid = false;
         }
 
         if (!isValid) return;
 
-        const users = JSON.parse(localStorage.getItem('users')) || [];
-        const existingUser = users.find(user => user.username === username && user.password === password);
+        const storedAccounts = JSON.parse(localStorage.getItem('accounts'));
+        const existingAccount = Object.values(storedAccounts).flat().find(account => account.login === username && account.password === password);
 
-        if (!existingUser) {
+        if (!existingAccount) {
             usernameErrorAu.textContent = 'Неверный логин или пароль.';
             return;
         }
 
-        window.location.href = 'CRM-system.html';
+        //АККАУНТЫ
+
+        switch (existingAccount.role) {
+            case 'director':
+                window.location.href = 'CRM-system.html';
+                sessionStorage.setItem('user', existingAccount.login);
+                break;
+            case 'bookkeeper':
+                window.location.href = 'CRM-system.html';
+                sessionStorage.setItem('user', existingAccount.login);
+                break;
+            case 'meneger':
+                window.location.href = 'CRM-system.html';
+                sessionStorage.setItem('user', existingAccount.login);
+                break;
+            case 'sklad':
+                window.location.href = 'warehouse.html';
+                sessionStorage.setItem('user', existingAccount.login);
+                break;
+        }
     });
 }
 
@@ -367,122 +462,6 @@ if (!localStorage.getItem('tableData')) {
     }; localStorage.setItem('tableData', JSON.stringify(sampleData));
 }
 
-// function loadTableData() {
-//     const tbodyContent = document.getElementById('tbodyContent');
-//     const data = JSON.parse(localStorage.getItem('tableData'));
-
-//     if (!tbodyContent || !data) return;
-
-//     tbodyContent.innerHTML = '';
-
-//     for (const key in data) {
-//         if (data.hasOwnProperty(key)) {
-//             const row = data[key];
-//             const tr = document.createElement('tr');
-
-//             for (const property in row) {
-//                 if (row.hasOwnProperty(property)) {
-//                     const td = document.createElement('td');
-//                     td.textContent = row[property];
-
-//                     // Логика для окрашивания ячеек "paid" и "score"
-//                     if (property === "paid" || property === "score") {
-//                         const paidValue = parseFloat(row.paid);
-//                         const scoreValue = parseFloat(row.score);
-
-//                         if (paidValue < scoreValue) {
-//                             td.style.color = '#C24343';
-//                         } else if (paidValue === scoreValue) {
-//                             td.style.color = '#53964A';
-//                         }
-//                     }
-
-//                     // Обработка клика по материалу
-//                     if (property === "material") {
-//                         td.style.cursor = "pointer";
-
-//                         const material = row[property];
-
-//                         // Используем addEventListener вместо onclick
-//                         td.addEventListener('click', function () {
-//                             if (row.quantity <= 20) {
-//                                 openModal(`${material}<br>Осталось шт. на складе: ${row.quantity}`);
-//                             }
-//                         });
-
-//                         // Изменяем цвет ячейки, если количество <= 20
-//                         const quantity = row.quantity;
-//                         if (quantity <= 20) {
-//                             td.style.color = '#C24343';
-//                         }
-//                     }
-
-//                     tr.appendChild(td);
-//                 }
-//             }
-
-//             tbodyContent.appendChild(tr);
-//         }
-//     }
-// }
-
-// function openModal(content) {
-//     const modalContent = document.getElementById("modalContent");
-//     if (!modalContent) return;
-
-//     modalContent.innerHTML = content;
-//     const modalMaterial = document.getElementById("modalMaterial");
-//     if (modalMaterial) modalMaterial.style.display = "block";
-
-//     closeBtn.forEach(function (button) {
-//         button.addEventListener('click', function () {
-//             modalMaterial.style.display = "none";
-//         });
-//     });
-// }
-
-function renderTable(data) {
-    const tbodyContent = document.getElementById('tbodyContent');
-    tbodyContent.innerHTML = '';
-
-    data.forEach(row => {
-        const tr = document.createElement('tr');
-        for (const property in row) {
-            if (row.hasOwnProperty(property)) {
-                if (property === "quantity") continue;
-
-                const td = document.createElement('td');
-                td.textContent = row[property];
-
-                if (property === "paid" || property === "score") {
-                    const paidValue = parseFloat(row.paid);
-                    const scoreValue = parseFloat(row.score);
-                    if (paidValue < scoreValue) {
-                        td.style.color = '#C24343';
-                    } else if (paidValue === scoreValue) {
-                        td.style.color = '#53964A';
-                    }
-                }
-
-                if (property === "material") {
-                    const quantity = row.quantity;
-                    if (quantity < 20) {
-                        td.style.color = '#C24343';
-                    }
-
-                    td.style.cursor = "pointer";
-                    td.addEventListener('click', function () {
-                        openModal(`${row.material}<br>Осталось шт. на складе: ${row.quantity}`);
-                    });
-                }
-
-                tr.appendChild(td);
-            }
-        }
-        tbodyContent.appendChild(tr);
-    });
-}
-
 function openModal(content) {
     const modalContent = document.getElementById("modalContent");
     if (!modalContent) return;
@@ -498,171 +477,183 @@ function openModal(content) {
     });
 }
 
-//ФИЛЬТРАЦИЯ
+//проверка на title
 
-if (btnFilter) {
-    btnFilter.addEventListener('click', function () {
-        filterCrm.style.display = 'block';
-    });
-}
+if (titleTag.textContent === "CRM-system") {
+    //ФИЛЬТРАЦИЯ
 
-const filterDateButton = document.querySelector('.filter-date-button');
-const filterAlphabetButton = document.querySelector('.filter-alphabet-button');
-const filterUnpaidButton = document.querySelector('.filter-unpaid-button');
+    if (btnFilter) {
+        btnFilter.addEventListener('click', function () {
+            filterCrm.style.display = 'block';
+        });
+    }
 
-let originalData = [];
+    const filterDateButton = document.querySelector('.filter-date-button');
+    const filterAlphabetButton = document.querySelector('.filter-alphabet-button');
+    const filterUnpaidButton = document.querySelector('.filter-unpaid-button');
 
-function loadTableData() {
-    const tbodyContent = document.getElementById('tbodyContent');
-    const data = JSON.parse(localStorage.getItem('tableData'));
+    let originalData = [];
 
-    if (!tbodyContent || !data) return;
+    function loadTableData() {
+        const tbodyContent = document.getElementById('tbodyContent');
+        const data = JSON.parse(localStorage.getItem('tableData'));
 
-    originalData = Object.values(data);
-    renderTable(originalData);
-}
+        if (!tbodyContent || !data) return;
 
-function renderTable(data) {
-    const tbodyContent = document.getElementById('tbodyContent');
-    tbodyContent.innerHTML = '';
+        originalData = Object.values(data);
+        renderTable(originalData);
+    }
 
-    data.forEach(row => {
-        const tr = document.createElement('tr');
-        for (const property in row) {
-            if (row.hasOwnProperty(property)) {
-                if (property === "quantity") continue;
+    function renderTable(data) {
+        const tbodyContent = document.getElementById('tbodyContent');
+        tbodyContent.innerHTML = '';
 
-                const td = document.createElement('td');
-                td.textContent = row[property];
+        data.forEach(row => {
+            const tr = document.createElement('tr');
+            for (const property in row) {
+                if (row.hasOwnProperty(property)) {
+                    if (property === "quantity") continue;
 
-                if (property === "paid" || property === "score") {
-                    const paidValue = parseFloat(row.paid);
-                    const scoreValue = parseFloat(row.score);
-                    if (paidValue < scoreValue) {
-                        td.style.color = '#C24343';
-                    } else if (paidValue === scoreValue) {
-                        td.style.color = '#53964A';
-                    }
-                }
+                    const td = document.createElement('td');
+                    td.textContent = row[property];
 
-                if (property === "material") {
-                    const quantity = row.quantity;
-                    if (quantity <= 20) {
-                        td.style.color = '#C24343';
+                    if (property === "paid" || property === "score") {
+                        const paidValue = parseFloat(row.paid);
+                        const scoreValue = parseFloat(row.score);
+                        if (paidValue < scoreValue) {
+                            td.style.color = '#C24343';
+                        } else if (paidValue === scoreValue) {
+                            td.style.color = '#53964A';
+                        }
                     }
 
-                    td.style.cursor = "pointer";
-                    td.addEventListener('click', function () {
-                        openModal(`${row.material}<br>Осталось шт. на складе: ${quantity}`);
-                        const modalMaterial = document.getElementById("modalMaterial");
-                        if (modalMaterial) modalMaterial.style.display = "block";
-                    });
-                }
+                    if (property === "material") {
+                        const quantity = row.quantity;
+                        if (quantity <= 20) {
+                            td.style.color = '#C24343';
+                        }
 
-                tr.appendChild(td);
+                        td.style.cursor = "pointer";
+                        td.addEventListener('click', function () {
+                            openModal(`${row.material}<br>Осталось шт. на складе: ${quantity}`);
+                            const modalMaterial = document.getElementById("modalMaterial");
+                            if (modalMaterial) modalMaterial.style.display = "block";
+                        });
+                    }
+
+                    tr.appendChild(td);
+                }
             }
-        }
-        tbodyContent.appendChild(tr);
+            tbodyContent.appendChild(tr);
+        });
+    }
+
+    filterDateButton.addEventListener('click', function () {
+        const sortedData = [...originalData].sort((a, b) => new Date(b.date.split('.').reverse().join('-')) - new Date(a.date.split('.').reverse().join('-')));
+        renderTable(sortedData);
     });
-}
 
-filterDateButton.addEventListener('click', function () {
-    const sortedData = [...originalData].sort((a, b) => new Date(b.date.split('.').reverse().join('-')) - new Date(a.date.split('.').reverse().join('-')));
-    renderTable(sortedData);
-});
-
-filterAlphabetButton.addEventListener('click', function () {
-    const sortedData = [...originalData].sort((a, b) => a.counterparty.localeCompare(b.counterparty, ['ru', 'en'], { sensitivity: 'base' }));
-    renderTable(sortedData);
-});
-
-filterUnpaidButton.addEventListener('click', function () {
-    renderTable(originalData);
-
-    const rows = document.querySelectorAll('#tbodyContent tr');
-
-    rows.forEach(row => {
-        const paidValue = parseFloat(row.cells[7].textContent);
-        const scoreValue = parseFloat(row.cells[8].textContent);
-
-        if (paidValue < scoreValue) {
-            row.style.backgroundColor = '#FFCCCB';
-        } else {
-            row.style.backgroundColor = '';
-        }
+    filterAlphabetButton.addEventListener('click', function () {
+        const sortedData = [...originalData].sort((a, b) => a.counterparty.localeCompare(b.counterparty, ['ru', 'en'], { sensitivity: 'base' }));
+        renderTable(sortedData);
     });
-});
 
-//НАСТРОЙКА ТАБЛИЦЫ
+    filterUnpaidButton.addEventListener('click', function () {
+        renderTable(originalData);
 
-if (btnCustomization) {
-    btnCustomization.addEventListener('click', function () {
-        customizationCrm.style.display = 'block';
-    });
-}
+        const rows = document.querySelectorAll('#tbodyContent tr');
 
-const table = document.querySelector('.table-crm');
-const buttons = {
-    id: document.querySelector('.customization-id-button'),
-    date: document.querySelector('.customization-date-button'),
-    term: document.querySelector('.customization-term-button'),
-    counterparty: document.querySelector('.customization-counterparty-button'),
-    order: document.querySelector('.customization-order-button'),
-    material: document.querySelector('.customization-material-button'),
-    size: document.querySelector('.customization-size-button'),
-    paid: document.querySelector('.customization-paid-button'),
-    score: document.querySelector('.customization-score-button'),
-    all: document.querySelector('.customization-all-button')
-};
+        rows.forEach(row => {
+            const paidValue = parseFloat(row.cells[7].textContent);
+            const scoreValue = parseFloat(row.cells[8].textContent);
 
-const columnVisibility = {
-    0: true,
-    1: true,
-    2: true,
-    3: true,
-    4: true,
-    5: true,
-    6: true,
-    7: true,
-    8: true
-};
-
-function hideAllBut(columnIndex) {
-    Array.from(table.rows).forEach(row => {
-        Array.from(row.cells).forEach((cell, index) => {
-            cell.style.display = index === columnIndex ? '' : 'none';
+            if (paidValue < scoreValue) {
+                row.style.backgroundColor = '#FFCCCB';
+            } else {
+                row.style.backgroundColor = '';
+            }
         });
     });
-}
 
-Object.keys(buttons).forEach(key => {
-    buttons[key].addEventListener('click', () => {
-        if (key === 'all') {
-            // Показать все столбцы
-            Array.from(table.rows).forEach(row => {
-                Array.from(row.cells).forEach(cell => {
-                    cell.style.display = '';
-                });
+    //НАСТРОЙКА ТАБЛИЦЫ
+
+    if (btnCustomization) {
+        btnCustomization.addEventListener('click', function () {
+            customizationCrm.style.display = 'block';
+        });
+    }
+
+    const table = document.querySelector('.table-crm');
+    const buttons = {
+        id: document.querySelector('.customization-id-button'),
+        date: document.querySelector('.customization-date-button'),
+        term: document.querySelector('.customization-term-button'),
+        counterparty: document.querySelector('.customization-counterparty-button'),
+        order: document.querySelector('.customization-order-button'),
+        material: document.querySelector('.customization-material-button'),
+        size: document.querySelector('.customization-size-button'),
+        paid: document.querySelector('.customization-paid-button'),
+        score: document.querySelector('.customization-score-button'),
+        all: document.querySelector('.customization-all-button')
+    };
+
+    const columnVisibility = {
+        0: true,
+        1: true,
+        2: true,
+        3: true,
+        4: true,
+        5: true,
+        6: true,
+        7: true,
+        8: true
+    };
+
+    function hideAllBut(columnIndex) {
+        Array.from(table.rows).forEach(row => {
+            Array.from(row.cells).forEach((cell, index) => {
+                cell.style.display = index === columnIndex ? '' : 'none';
             });
-        } else {
-            const columnIndex = Object.keys(buttons).indexOf(key);
-            hideAllBut(columnIndex);
+        });
+    }
+
+    Object.keys(buttons).forEach(key => {
+        buttons[key].addEventListener('click', () => {
+            if (key === 'all') {
+                Array.from(table.rows).forEach(row => {
+                    Array.from(row.cells).forEach(cell => {
+                        cell.style.display = '';
+                    });
+                });
+            } else {
+                const columnIndex = Object.keys(buttons).indexOf(key);
+                hideAllBut(columnIndex);
+            }
+        });
+    });
+
+    //УВЕДОМЛЕНИЯ
+    notification.addEventListener('click', function () {
+        if (modalNotification) {
+            modalNotification.style.display = 'flex';
         }
     });
-});
+}
 
-//УВЕДОМЛЕНИЯ
+//СТРАНИЦА ЗАЯВОК
 
-const notification = document.querySelector('.notification');
-const modalNotification = document.querySelector('.modal-notification');
-const notificationRed = document.querySelector('.icon-red')
-
-notification.addEventListener('click', function () {
-    if (modalNotification) {
-        modalNotification.style.display = 'flex';
+if (sessionStorage.getItem('user') == 'sklad') {
+    if (titleTag.textContent === "Страница заявок") {
+        tableWare.addEventListener('click', function () {
+            window.location.href = 'CRM-system.html';
+        });
     }
-});
-
-
+    if (titleTag.textContent === "CRM-system") {
+        btnBox.style.display = 'flex';
+        btnBox.addEventListener('click', function () {
+            window.location.href = 'warehouse.html';
+        });
+    }
+}
 
 document.addEventListener("DOMContentLoaded", loadTableData);
