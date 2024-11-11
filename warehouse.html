@@ -18,7 +18,7 @@
                 <button class="table-ware"><img src="icons/table.svg" alt="иконка таблицы"></button>
             </div>
             <div class="icon-person">
-                <button><img src="icons/notification.svg" alt="иконка уведомлений"></button>
+                <button class="notification-ware"><img src="icons/notification.svg" alt="иконка уведомлений"></button>
                 <button class="button-profile-ware"><img src="icons/icon_profile.svg" alt="иконка профиля"></button>
             </div>
         </div>
@@ -39,10 +39,24 @@
         </div>
     </header>
 
+    <!-- УВЕДОМЛЕНИЯ-->
+    <div class="modal-notification-ware">
+        <div class="form-close">
+            <img src="icons/icon_close.svg" alt="иконка крестика">
+        </div>
+        <div class="text-notification-ware">
+            <p>Уведомления</p>
+        </div>
+        <div class="icon-red-ware">
+            <img src="icons/red.svg" alt="красное уведомление">
+            <!-- <img src="icons/notification-red.svg" alt="иконка новых уведомлений"> -->
+        </div>
+    </div>
+
     <!-- АККАРДИОН -->
 
-    <div class="body-section__accordion">
-        <div class="shadow">
+    <div class="body-section__accordion" id="accordionContainer">
+        <!-- <div class="shadow">
             <div class="accordion-bar" onclick="toggleAccordion(this)">
                 <p></p>
                 <img src="icons/down.svg" alt="иконка стрелки вниз" class="acc-app">
@@ -54,7 +68,7 @@
                 </label>
                 <button class="button-accordion">Закрыть заявку</button>
             </div>
-        </div>
+        </div> -->
     </div>
 
 </body>

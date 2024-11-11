@@ -114,6 +114,7 @@ a:hover {
   z-index: 1000;
   padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 .header-section__form input {
   margin: 20px 60px;
@@ -195,6 +196,7 @@ a:hover {
   z-index: 1000;
   padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 .header-section__form-login input {
   margin: 20px 60px;
@@ -469,6 +471,7 @@ footer {
   z-index: 1000;
   padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 .header-section__form-crm p {
   text-align: center;
@@ -676,6 +679,7 @@ footer {
   border: none;
   width: 170px;
   height: 30px;
+  cursor: pointer;
 }
 .container-crm__modal-material .btn-material p {
   text-align: center;
@@ -743,6 +747,7 @@ th {
   z-index: 1000;
   padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 .header-section__form-ware p {
   text-align: center;
@@ -867,6 +872,35 @@ th {
 }
 .accordion p {
   padding: 8px;
+}
+
+.modal-notification-ware {
+  display: none;
+  background-color: #F5F6F6;
+  position: absolute;
+  top: 100px;
+  left: 1000px;
+  width: 400px;
+  height: 640px;
+  border-radius: 6px;
+  box-shadow: 7px 4px 24px 0px rgba(0, 0, 0, 0.25);
+  flex-direction: column;
+}
+.modal-notification-ware .form-close {
+  display: flex;
+  justify-content: end;
+  cursor: pointer;
+  margin: 25px 360px;
+  width: 15px;
+  height: 13px;
+}
+.modal-notification-ware .text-notification-ware {
+  color: #10181A;
+  font-weight: 700;
+  margin: 0 38px;
+}
+.modal-notification-ware .icon-red-ware {
+  margin: 40px 20px;
 }
 
 @font-face {

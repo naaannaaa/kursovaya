@@ -94,6 +94,7 @@ a:hover
     z-index: 1000
     padding: 20px
     box-shadow: 0 4px 8px rgba(0,0,0,0.2)
+    transition: opacity 0.3s ease, transform 0.3s ease
     input
         margin: 20px 60px
     p
@@ -163,6 +164,7 @@ a:hover
     z-index: 1000
     padding: 20px
     box-shadow: 0 4px 8px rgba(0,0,0,0.2)
+    transition: opacity 0.3s ease, transform 0.3s ease
     input
         margin: 20px 60px
     p
@@ -385,6 +387,7 @@ footer
     z-index: 1000
     padding: 20px
     box-shadow: 0 4px 8px rgba(0,0,0,0.2)
+    transition: opacity 0.3s ease, transform 0.3s ease
     p
         text-align: center
     .form-btn
@@ -569,6 +572,7 @@ footer
             border: none
             width: 170px
             height: 30px
+            cursor: pointer
             p
                 text-align: center
 
@@ -650,6 +654,7 @@ th
     z-index: 1000
     padding: 20px
     box-shadow: 0 4px 8px rgba(0,0,0,0.2)
+    transition: opacity 0.3s ease, transform 0.3s ease
     p
         text-align: center
     .form-btn
@@ -749,6 +754,33 @@ th
     flex-direction: column
     p
         padding: 8px
+
+    //----------УВЕДОМЛЕНИЯ----------
+
+.modal-notification-ware
+    display: none
+    background-color: #F5F6F6
+    position: absolute
+    top: 100px
+    left: 1000px
+    width: 400px
+    height: 640px
+    border-radius: 6px
+    box-shadow: 7px 4px 24px 0px rgba(0, 0, 0, 0.25)
+    flex-direction: column
+    .form-close
+        display: flex
+        justify-content: end
+        cursor: pointer
+        margin: 25px 360px
+        width: 15px
+        height: 13px
+    .text-notification-ware
+        color: #10181A
+        font-weight: 700
+        margin: 0 38px
+    .icon-red-ware
+        margin: 40px 20px
 // .checkbox-p
 //     display: flex
 //     align-items: center
@@ -781,7 +813,7 @@ th
 //     border-width: 0 2px 2px 0
 //     transform: rotate(45deg)
 
-//----------ПОДКЛЮЧЕНИЕ ШРИФТОВ--------------
+//----------ПОДКЛЮЧЕНИЕ ШРИФТОВ----------
 
 @font-face
     font-family: 'Montserrat'

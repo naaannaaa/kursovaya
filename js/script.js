@@ -25,6 +25,9 @@ const exitNo = document.querySelector('.button-form');
 const materialBtn = document.querySelector('.btn-material');
 const tableWare = document.querySelector('.table-ware');
 const btnBox = document.querySelector('.box');
+const notificationWare = document.querySelector('.notification-ware');
+const modalNotificationWare = document.querySelector('.modal-notification-ware');
+const notificationRedWare = document.querySelector('.icon-red-ware');
 
 //РАБОЧИЕ АККАУНТЫ
 
@@ -168,6 +171,7 @@ if (closeBtn.length) {
             if (inputPasswordRegistration) inputPasswordRegistration.value = '';
             if (inputLoginAuthorization) inputLoginAuthorization.value = '';
             if (inputPasswordAuthorization) inputPasswordAuthorization.value = '';
+            if (modalNotificationWare) modalNotificationWare.style.display = 'none';
         });
     });
 }
@@ -461,11 +465,9 @@ if (!localStorage.getItem('tableData')) {
         }
     }; localStorage.setItem('tableData', JSON.stringify(sampleData));
 }
-
 function openModal(content) {
     const modalContent = document.getElementById("modalContent");
     if (!modalContent) return;
-
     modalContent.innerHTML = content;
     const modalMaterial = document.getElementById("modalMaterial");
     if (modalMaterial) modalMaterial.style.display = "block";
@@ -535,7 +537,7 @@ if (titleTag.textContent === "CRM-system") {
 
                         td.style.cursor = "pointer";
                         td.addEventListener('click', function () {
-                            openModal(`${row.material}<br>Осталось шт. на складе: ${quantity}`);
+                            openModal(`${row.material}: ${quantity} шт.`);
                             const modalMaterial = document.getElementById("modalMaterial");
                             if (modalMaterial) modalMaterial.style.display = "block";
                         });
@@ -638,6 +640,10 @@ if (titleTag.textContent === "CRM-system") {
             modalNotification.style.display = 'flex';
         }
     });
+
+    if (sessionStorage.getItem('user') == 'meneger', 'director', 'bookkeeper') {
+        btnBox.style.display = 'none';
+    }
 }
 
 //СТРАНИЦА ЗАЯВОК
@@ -647,13 +653,139 @@ if (sessionStorage.getItem('user') == 'sklad') {
         tableWare.addEventListener('click', function () {
             window.location.href = 'CRM-system.html';
         });
+
+        // Уведомления
+        notificationWare.addEventListener('click', function () {
+            if (modalNotificationWare) {
+                modalNotificationWare.style.display = 'flex';
+            }
+        });
     }
+
     if (titleTag.textContent === "CRM-system") {
         btnBox.style.display = 'flex';
         btnBox.addEventListener('click', function () {
             window.location.href = 'warehouse.html';
         });
+
+        //изменение модального окна заявки
+        // function openModal() {
+        //     const modal = document.getElementById('modalMaterial');
+        //     const modalContent = document.getElementById('modalContent');
+
+        //     // Создаем текстовый элемент для "Картон:"
+        //     const label = document.createElement('span');
+        //     label.textContent = `${row.material}: `;
+
+        //     // Создаем input
+        //     const newInput = document.createElement('input');
+        //     newInput.type = 'text';
+        //     newInput.placeholder = 'Введите количество';
+        //     newInput.id = 'cardboardInput'; // Добавляем id для доступа к input позже
+
+        //     // Создаем текстовый элемент для "шт."
+        //     const unit = document.createElement('span');
+        //     unit.textContent = ' шт.';
+
+        //     // Очищаем содержимое modalContent и добавляем новые элементы
+        //     modalContent.innerHTML = ''; // Очищаем предыдущие элементы
+        //     modalContent.appendChild(label); // Добавляем "Картон:"
+        //     modalContent.appendChild(newInput); // Добавляем input
+        //     modalContent.appendChild(unit); // Добавляем "шт."
+
+        //     // Показываем модальное окно
+        //     modal.style.display = 'block';
+        // }
+        // function closeModal() {
+        //     const modal = document.getElementById('modalMaterial');
+        //     modal.style.display = 'none';
+        // }
     }
 }
+
+//АККОРДЕОН
+
+if (materialBtn) {
+    materialBtn.addEventListener('click', function () {
+        const modalContent = document.getElementById("modalContent");
+        const materials = [];
+
+        if (modalContent) {
+            const materialInfo = modalContent.innerHTML.split(', ');
+            materialInfo.forEach(info => {
+                const [material, quantity] = info.split(': ');
+                materials.push({ material: material.trim(), quantity: parseInt(quantity.trim()) });
+            });
+        }
+
+        let existingData = JSON.parse(localStorage.getItem("accordionData")) || [];
+
+        existingData.push(...materials);
+
+        localStorage.setItem("accordionData", JSON.stringify(existingData));
+        modalMaterial.style.display = "none";
+    });
+}
+
+window.onload = function () {
+    const accordionData = JSON.parse(localStorage.getItem("accordionData"));
+    const container = document.getElementById("accordionContainer");
+
+    if (accordionData && container) {
+        accordionData.forEach(item => {
+            const shadowDiv = document.createElement("div");
+            shadowDiv.className = "shadow";
+
+            const accordionBar = document.createElement("div");
+            accordionBar.className = "accordion-bar";
+            accordionBar.onclick = function () { toggleAccordion(this); };
+
+            const titleParagraph = document.createElement("p");
+            titleParagraph.textContent = item.material;
+
+            const arrowIcon = document.createElement("img");
+            arrowIcon.src = "icons/down.svg";
+            arrowIcon.alt = "иконка стрелки вниз";
+            arrowIcon.className = "acc-app";
+
+            accordionBar.appendChild(titleParagraph);
+            accordionBar.appendChild(arrowIcon);
+
+            const accordionContent = document.createElement("div");
+            accordionContent.className = "accordion-content";
+
+            const contentParagraph = document.createElement("p");
+            contentParagraph.textContent = `Осталось на складе: ${item.quantity} шт.`;
+
+            const closeButton = document.createElement("button");
+            closeButton.className = "button-accordion";
+            closeButton.textContent = "Закрыть заявку";
+
+            accordionContent.appendChild(contentParagraph);
+            accordionContent.appendChild(closeButton);
+
+            shadowDiv.appendChild(accordionBar);
+            shadowDiv.appendChild(accordionContent);
+
+            container.appendChild(shadowDiv);
+        });
+    }
+};
+
+function toggleAccordion(element) {
+    const content = element.nextElementSibling;
+    const icon = element.querySelector('.acc-app');
+
+    if (!content || !icon) return;
+
+    if (content.style.display === "block") {
+        content.style.display = "none";
+        icon.src = "icons/down.svg";
+    } else {
+        content.style.display = "block";
+        icon.src = "icons/app.svg";
+    }
+}
+
 
 document.addEventListener("DOMContentLoaded", loadTableData);
