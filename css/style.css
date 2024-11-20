@@ -681,7 +681,10 @@ footer {
   height: 30px;
   cursor: pointer;
 }
-.container-crm__modal-material .btn-material p {
+.container-crm__modal-material .btn-material:hover {
+  background: #65AFBC;
+}
+.container-crm__modal-material .btn-material:hover p {
   text-align: center;
 }
 
@@ -814,6 +817,8 @@ th {
   display: none;
   padding: 10px;
   margin: 10px;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
 }
 .accordion-content .button-accordion {
   display: flex;
@@ -823,6 +828,12 @@ th {
   border-radius: 6px;
   padding: 20px;
   box-shadow: 7px 4px 24px 0px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+}
+.accordion-content .button-accordion[disabled] {
+  background-color: #b6b4b4;
+  color: #000000;
+  cursor: default;
 }
 
 .accordion-bar {
@@ -830,6 +841,7 @@ th {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin: 0 auto;
 }
 
 .shadow {
@@ -839,6 +851,7 @@ th {
 .body-section__accordion {
   margin: 130px 120px;
   color: #10181A;
+  padding: 0 0 20px;
 }
 
 .shadow {
@@ -874,17 +887,21 @@ th {
   padding: 8px;
 }
 
+.button-accordion:hover {
+  background: #65AFBC;
+}
+
 .modal-notification-ware {
   display: none;
   background-color: #F5F6F6;
   position: absolute;
-  top: 100px;
-  left: 1000px;
   width: 400px;
-  height: 640px;
+  height: 440px;
   border-radius: 6px;
   box-shadow: 7px 4px 24px 0px rgba(0, 0, 0, 0.25);
   flex-direction: column;
+  right: 40px;
+  margin-top: -20px;
 }
 .modal-notification-ware .form-close {
   display: flex;
@@ -901,6 +918,42 @@ th {
 }
 .modal-notification-ware .icon-red-ware {
   margin: 40px 20px;
+}
+
+.materialInput {
+  border: none;
+  width: 50px;
+  height: 30px;
+  margin: 10px;
+}
+
+.materialInput:hover {
+  border: 2px solid #65AFBC;
+}
+
+.saveBtn {
+  background-color: #A6CFD6;
+  margin: 15px;
+  border: none;
+  width: 170px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.saveBtn:hover {
+  background: #65AFBC;
+}
+
+.saveBtn[disabled] {
+  background-color: #b6b4b4;
+  color: #000000;
+  cursor: default;
+}
+
+.materialBtn[disabled] {
+  background-color: #b6b4b4;
+  color: #000000;
+  cursor: default;
 }
 
 @font-face {
