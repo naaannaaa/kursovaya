@@ -37,10 +37,10 @@
             <div class="text-notification">
                 <p>Уведомления</p>
             </div>
-            <div class="icon-red">
+            <!-- <div class="icon-red">
                 <img src="icons/red.svg" alt="красное уведомление">
-                <!-- <img src="icons/notification-red.svg" alt="иконка новых уведомлений"> -->
-            </div>
+                <img src="icons/notification-red.svg" alt="иконка новых уведомлений">
+            </div> -->
         </div>
 
         <!-- ФОРМА ВЫХОДА-->
@@ -121,15 +121,34 @@
 
             <div class="container-crm__modal-material" id="modalMaterial">
                 <div class="form-close">
-                    <img src="icons/icon_close.svg" alt="иконка крестика">
+                    <img src="icons/icon_close.svg" alt="иконка крестика" class="closeBtn">
                 </div>
                 <div class="modal-content" id="modalContent"></div>
                 <button class="btn-material" type="submit">
                     <p>Подать заявку</p>
                 </button>
             </div>
+            <div class="container-crm__modal-material" id="modalMaterialForSklad">
+                <div class="form-close">
+                    <img src="icons/icon_close.svg" alt="иконка крестика" class="closeBtn">
+                </div>
+                <div class="modal-content" id="modalContentForSklad"></div>
+            </div>
         </div>
     </div>
+    <!-- <div class="container-crm__modal-material" style="display: block;">
+        <div class="form-close">
+            <img src="icons/icon_close.svg" alt="иконка крестика" class="closeBtn">
+        </div>
+        <div class="modal-content" id="modalContent">
+            <span>Дерево</span>
+            <input class="materialInput" type="text" placeholder="Введите количество" id="cardboardInput">
+            <span> шт.</span>
+            <div>
+                <button class="saveBtn">Сохранить</button>
+            </div>
+        </div>
+    </div> -->
 </body>
 
 </html>

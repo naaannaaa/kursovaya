@@ -189,8 +189,16 @@ if (accBtn) {
 
 // АККОРДЕОН
 window.toggleAccordion = function (element) {
+    const allContents = document.querySelectorAll('.accordion-content');
     const content = element.nextElementSibling;
     const icon = element.querySelector('.acc-app');
+
+    allContents.forEach((c) => {
+        if (c !== content && c.style.display === "block") {
+            c.style.display = "none";
+            c.previousElementSibling.querySelector('.acc-app').src = "icons/down.svg";
+        }
+    });
 
     if (!content || !icon) return;
 
@@ -200,6 +208,40 @@ window.toggleAccordion = function (element) {
     } else {
         content.style.display = "block";
         icon.src = "icons/app.svg";
+
+        if (!content.querySelector('input[type="checkbox"]')) {
+            const checkboxContainer = document.createElement('div');
+            const label = document.createElement('label');
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.style.accentColor = '#65AFBC';
+            checkbox.style.cursor = 'pointer';
+            checkbox.style.width = '20px';
+            checkbox.style.height = '20px';
+
+            checkboxContainer.style.display = 'flex';
+            checkboxContainer.style.alignItems = 'center';
+            checkboxContainer.style.marginBottom = '5px';
+
+            label.textContent = 'Количество материала восстановлено';
+            label.style.marginRight = '10px';
+
+            checkboxContainer.appendChild(label);
+            checkboxContainer.appendChild(checkbox);
+            content.appendChild(checkboxContainer);
+
+            const closeButton = document.createElement("button");
+            closeButton.className = "button-accordion";
+            closeButton.textContent = "Закрыть заявку";
+            // closeButton.style.cursor = "pointer";
+            closeButton.disabled = true;
+
+            checkbox.addEventListener('change', function () {
+                closeButton.disabled = !this.checked;
+            });
+
+            content.appendChild(closeButton);
+        }
     }
 };
 
@@ -345,10 +387,11 @@ if (authorizationForm) {
 }
 
 // CRM-СИСТЕМA
+
 if (!localStorage.getItem('tableData')) {
     const sampleData = {
         row1: {
-            id: 123,
+            id: 100,
             date: '01.02.24',
             term: '03.03.24',
             counterparty: 'BMW',
@@ -360,7 +403,7 @@ if (!localStorage.getItem('tableData')) {
             score: '100.000'
         },
         row2: {
-            id: 124,
+            id: 101,
             date: '02.02.24',
             term: '03.03.24',
             counterparty: 'Audi',
@@ -372,7 +415,7 @@ if (!localStorage.getItem('tableData')) {
             score: '100.000'
         },
         row3: {
-            id: 125,
+            id: 102,
             date: '03.02.24',
             term: '03.03.24',
             counterparty: 'Mercedes',
@@ -383,7 +426,7 @@ if (!localStorage.getItem('tableData')) {
             paid: '100.000',
             score: '100.000'
         }, row4: {
-            id: 126,
+            id: 103,
             date: '04.02.24',
             term: '03.03.24',
             counterparty: 'Volkswagen',
@@ -394,7 +437,7 @@ if (!localStorage.getItem('tableData')) {
             paid: '100.000',
             score: '100.000'
         }, row5: {
-            id: 127,
+            id: 104,
             date: '05.02.24',
             term: '03.03.24',
             counterparty: 'Toyota',
@@ -405,18 +448,19 @@ if (!localStorage.getItem('tableData')) {
             paid: '50.000',
             score: '100.000'
         }, row6: {
-            id: 123,
+            id: 103,
             date: '01.02.24',
             term: '03.03.24',
             counterparty: 'BMW',
             order: 'Пластиковые контейнеры, 10',
             material: 'Дерево',
-            quantity: 50, size: '20x20',
+            quantity: 50,
+            size: '20x20',
             paid: '60.000',
             score: '100.000'
         },
         row7: {
-            id: 124,
+            id: 104,
             date: '02.02.24',
             term: '03.03.24',
             counterparty: 'Audi',
@@ -428,7 +472,7 @@ if (!localStorage.getItem('tableData')) {
             score: '100.000'
         },
         row8: {
-            id: 125,
+            id: 105,
             date: '03.02.24',
             term: '03.03.24',
             counterparty: 'Mercedes',
@@ -440,7 +484,7 @@ if (!localStorage.getItem('tableData')) {
             score: '100.000'
         },
         row9: {
-            id: 125,
+            id: 106,
             date: '03.02.24',
             term: '03.03.24',
             counterparty: 'Mercedes',
@@ -452,7 +496,7 @@ if (!localStorage.getItem('tableData')) {
             score: '100.000'
         },
         row10: {
-            id: 125,
+            id: 107,
             date: '03.02.24',
             term: '03.03.24',
             counterparty: 'Mercedes',
@@ -465,6 +509,8 @@ if (!localStorage.getItem('tableData')) {
         }
     }; localStorage.setItem('tableData', JSON.stringify(sampleData));
 }
+
+//модальное окно материала
 function openModal(content) {
     const modalContent = document.getElementById("modalContent");
     if (!modalContent) return;
@@ -519,6 +565,10 @@ if (titleTag.textContent === "CRM-system") {
                     const td = document.createElement('td');
                     td.textContent = row[property];
 
+                    if (property == 'id') {
+                        td.classList.add('id');
+                    }
+
                     if (property === "paid" || property === "score") {
                         const paidValue = parseFloat(row.paid);
                         const scoreValue = parseFloat(row.score);
@@ -529,6 +579,7 @@ if (titleTag.textContent === "CRM-system") {
                         }
                     }
 
+
                     if (property === "material") {
                         const quantity = row.quantity;
                         if (quantity <= 20) {
@@ -536,11 +587,16 @@ if (titleTag.textContent === "CRM-system") {
                         }
 
                         td.style.cursor = "pointer";
-                        td.addEventListener('click', function () {
-                            openModal(`${row.material}: ${quantity} шт.`);
-                            const modalMaterial = document.getElementById("modalMaterial");
-                            if (modalMaterial) modalMaterial.style.display = "block";
-                        });
+                        if (sessionStorage.getItem('user') == 'sklad') {
+                            td.addEventListener('click', openModalForSklad)
+                        } else {
+                            td.addEventListener('click', function () {
+                                openModal(`${row.material}: ${quantity} шт.`);
+                                const modalMaterial = document.getElementById("modalMaterial");
+                                if (modalMaterial) modalMaterial.style.display = "block";
+                            });
+                        }
+
                     }
 
                     tr.appendChild(td);
@@ -668,61 +724,113 @@ if (sessionStorage.getItem('user') == 'sklad') {
             window.location.href = 'warehouse.html';
         });
 
-        //изменение модального окна заявки
-        // function openModal() {
-        //     const modal = document.getElementById('modalMaterial');
-        //     const modalContent = document.getElementById('modalContent');
+        function openModalForSklad() {
+            let el = this;
+            console.log(el);
+            let nameMaterial = this.textContent;
+            console.log(nameMaterial);
+            let idTd = el.closest('tr').querySelector('.id').textContent;
+            console.log('ID -', idTd);
 
-        //     // Создаем текстовый элемент для "Картон:"
-        //     const label = document.createElement('span');
-        //     label.textContent = `${row.material}: `;
+            const modal = document.getElementById('modalMaterialForSklad');
+            const modalContent = document.getElementById('modalContentForSklad');
+            console.log(modalContent);
 
-        //     // Создаем input
-        //     const newInput = document.createElement('input');
-        //     newInput.type = 'text';
-        //     newInput.placeholder = 'Введите количество';
-        //     newInput.id = 'cardboardInput'; // Добавляем id для доступа к input позже
+            const label = document.createElement('span');
+            label.textContent = el.textContent;
 
-        //     // Создаем текстовый элемент для "шт."
-        //     const unit = document.createElement('span');
-        //     unit.textContent = ' шт.';
+            const newInput = document.createElement('input');
+            newInput.classList.add('materialInput');
+            newInput.type = 'text';
+            newInput.id = 'cardboardInput';
 
-        //     // Очищаем содержимое modalContent и добавляем новые элементы
-        //     modalContent.innerHTML = ''; // Очищаем предыдущие элементы
-        //     modalContent.appendChild(label); // Добавляем "Картон:"
-        //     modalContent.appendChild(newInput); // Добавляем input
-        //     modalContent.appendChild(unit); // Добавляем "шт."
+            const unit = document.createElement('span');
+            unit.textContent = ' шт.';
 
-        //     // Показываем модальное окно
-        //     modal.style.display = 'block';
-        // }
-        // function closeModal() {
-        //     const modal = document.getElementById('modalMaterial');
-        //     modal.style.display = 'none';
-        // }
+            const btn = document.createElement('button');
+            btn.textContent = 'Сохранить';
+            btn.classList.add('saveBtn');
+            btn.disabled = true;
+
+            newInput.addEventListener('input', function () {
+                btn.disabled = this.value.trim() === '';
+            });
+
+            btn.addEventListener('click', function () {
+                const newQuantity = parseInt(newInput.value, 10);
+                if (!isNaN(newQuantity)) {
+                    updateQuantityInTable(idTd, newQuantity);
+                    modal.style.display = 'none';
+                } else {
+                    alert('Введите корректное количество');
+                }
+            });
+
+            modalContent.innerHTML = '';
+            modalContent.appendChild(label);
+            modalContent.appendChild(newInput);
+            modalContent.appendChild(unit);
+            modalContent.appendChild(btn);
+
+            modal.querySelector('.closeBtn').addEventListener('click', function () {
+                modal.style.display = 'none';
+            });
+
+            modal.style.display = 'block';
+            console.log(modal);
+        }
+
+        function updateQuantityInTable(id, newQuantity) {
+            const data = JSON.parse(localStorage.getItem('tableData'));
+            if (!data) return;
+
+            const foundRow = Object.values(data).find(row => row.id == id);
+            if (foundRow) {
+                foundRow.quantity = newQuantity;
+                localStorage.setItem('tableData', JSON.stringify(data));
+                loadTableData();
+            } else {
+                console.log('Не найдено заявка с ID' + id);
+            }
+        }
     }
 }
+
+// Example usage: search for ID 125
+// findOrderById(125);
 
 //АККОРДЕОН
 
 if (materialBtn) {
     materialBtn.addEventListener('click', function () {
+        let existingData = JSON.parse(localStorage.getItem("accordionData")) || [];
         const modalContent = document.getElementById("modalContent");
+        const modalNotification = document.querySelector(".modal-notification");
+        let newOrderText = document.createElement('div');
         const materials = [];
 
         if (modalContent) {
             const materialInfo = modalContent.innerHTML.split(', ');
             materialInfo.forEach(info => {
                 const [material, quantity] = info.split(': ');
-                materials.push({ material: material.trim(), quantity: parseInt(quantity.trim()) });
+                const quantityValue = parseInt(quantity.trim());
+                materials.push({ id: existingData.length + 1, material: material.trim(), quantity: quantityValue });
             });
         }
 
-        let existingData = JSON.parse(localStorage.getItem("accordionData")) || [];
+        newOrderText.innerHTML = `
+        <div class='notification'>
+                <img src="icons/red.svg" alt="красное уведомление">
+                Поступила новая заявка с материалами: ${materials[0].material}, ${materials[0].quantity} шт.
+        </div>
+        `;
+
+        modalNotification.append(newOrderText);
 
         existingData.push(...materials);
 
         localStorage.setItem("accordionData", JSON.stringify(existingData));
+
         modalMaterial.style.display = "none";
     });
 }
@@ -757,35 +865,56 @@ window.onload = function () {
             const contentParagraph = document.createElement("p");
             contentParagraph.textContent = `Осталось на складе: ${item.quantity} шт.`;
 
-            const closeButton = document.createElement("button");
-            closeButton.className = "button-accordion";
-            closeButton.textContent = "Закрыть заявку";
-
             accordionContent.appendChild(contentParagraph);
-            accordionContent.appendChild(closeButton);
 
-            shadowDiv.appendChild(accordionBar);
-            shadowDiv.appendChild(accordionContent);
+            const checkboxContainer = document.createElement('div');
+            const labelCheckbox = document.createElement('label');
+            const checkboxCheckbox = document.createElement('input');
 
-            container.appendChild(shadowDiv);
-        });
+            checkboxCheckbox.type = 'checkbox';
+            checkboxCheckbox.style.accentColor = '#65AFBC';
+            checkboxCheckbox.style.cursor = 'pointer';
+
+            checkboxCheckbox.style.width = '20px';
+            checkboxCheckbox.style.height = '20px';
+            checkboxCheckbox.style.borderWidth = '0';
+            checkboxCheckbox.style.outlineWidth = '0';
+
+            checkboxContainer.style.display = 'flex';
+            checkboxContainer.style.alignItems = 'center';
+
+            labelCheckbox.textContent = 'Количество материала восстановлено'
+            labelCheckbox.style.margin = '15px 10px 10px 0';
+
+            checkboxContainer.appendChild(labelCheckbox);
+            checkboxContainer.appendChild(checkboxCheckbox);
+            accordionContent.appendChild(checkboxContainer);
+
+            const closeButton = document.createElement("button")
+            closeButton.className = "button-accordion"
+            closeButton.textContent = "Закрыть заявку"
+            // closeButton.style.cursor = "pointer"
+            closeButton.disabled = true;
+
+            checkboxCheckbox.addEventListener('change', function () {
+                closeButton.disabled = !this.checked;
+            });
+
+            accordionContent.appendChild(closeButton)
+
+            closeButton.addEventListener('click', function () {
+                const index = accordionData.findIndex(item => item.id == parseInt(accordionBar.id))
+                accordionData.splice(index, 1)
+                localStorage.setItem("accordionData", JSON.stringify(accordionData))
+                shadowDiv.remove()
+            })
+
+            shadowDiv.appendChild(accordionBar)
+            shadowDiv.appendChild(accordionContent)
+
+            container.appendChild(shadowDiv)
+        })
     }
 };
-
-function toggleAccordion(element) {
-    const content = element.nextElementSibling;
-    const icon = element.querySelector('.acc-app');
-
-    if (!content || !icon) return;
-
-    if (content.style.display === "block") {
-        content.style.display = "none";
-        icon.src = "icons/down.svg";
-    } else {
-        content.style.display = "block";
-        icon.src = "icons/app.svg";
-    }
-}
-
 
 document.addEventListener("DOMContentLoaded", loadTableData);
